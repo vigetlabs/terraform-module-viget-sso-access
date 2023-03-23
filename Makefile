@@ -5,7 +5,7 @@ EXECUTABLE_DEPS = terraform-docs
 K := $(foreach exec,$(EXECUTABLE_DEPS),\
 				$(if $(shell which $(exec)), "$(exec) found" , $(error "No $(exec) in PATH")))
 
-.PHONY: help docs/generate
+.PHONY: help docs
 
 ## This help screen
 help:
@@ -24,5 +24,5 @@ help:
 	@printf "\n"
 
 ## Generate terraform documentation and add to README.md
-docs/generate:
+docs:
 	terraform-docs -c .terraform.docs.yml .
