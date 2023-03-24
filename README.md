@@ -6,6 +6,8 @@ Terraform module to set up standardized sso access in client accounts
 
 //TODO: add instructions on usage with the Viget AWS IAM Identity Center [see](https://static.global.sso.amazonaws.com/app-4a24b6fe5e450fa2/instructions/index.htm)
 
+//TODO: add instructions on setting up a .netrc to download release artifacts
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
