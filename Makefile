@@ -1,5 +1,9 @@
+GITHUB_REPO := vigetlabs/terraform-module-viget-sso-access
+FILES_TO_COMPRESS := outputs.tf roles.tf saml_providers.tf variables.tf versions.tf
+GITHUB_CLI := gh
+
 .DEFAULT_GOAL = help
-EXECUTABLE_DEPS = terraform-docs
+EXECUTABLE_DEPS = terraform-docs gh jq
 
 # Test for executable dependencies
 K := $(foreach exec,$(EXECUTABLE_DEPS),\
@@ -26,3 +30,23 @@ help:
 ## Generate terraform documentation and add to README.md
 docs:
 	terraform-docs -c .terraform.docs.yml .
+
+## Release a new version of the module
+release: # TODO: clean this up and automate better
+	# Set the release tag and version
+	$(eval TAG := $(shell git describe --tags --abbrev=0))
+	$(eval VERSION := $(shell git describe --tags))
+
+	# Create a GitHub release
+	$(GITHUB_CLI) release create $(VERSION) --repo $(GITHUB_REPO) --title "$(VERSION)" --notes "Release $(VERSION)" --draft
+
+	# Compress the list of files
+	mkdir -p dist
+	tar -czvf dist/$(TAG).tar.gz $(FILES_TO_COMPRESS)
+
+	# Upload the compressed archive to the GitHub release
+	$(GITHUB_CLI) release upload $(VERSION) --repo $(GITHUB_REPO) dist/$(TAG).tar.gz
+
+## Clean up generated files
+clean:
+	rm -rf dist
