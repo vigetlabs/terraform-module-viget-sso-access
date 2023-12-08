@@ -1,5 +1,5 @@
 GITHUB_REPO := vigetlabs/terraform-module-viget-sso-access
-FILES_TO_COMPRESS := outputs.tf roles.tf saml_providers.tf variables.tf versions.tf
+FILES_TO_COMPRESS := outputs.tf roles.tf saml_providers.tf variables.tf versions.tf LICENSE
 GITHUB_CLI := gh
 
 .DEFAULT_GOAL = help

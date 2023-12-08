@@ -16,3 +16,22 @@ output "roles" {
     }
   }
 }
+
+output "providers" {
+  description = "SAML providers for mapping in IAM Identity Center"
+
+  value = {
+    admin = {
+      name = aws_iam_saml_provider.admin.name
+      arn  = aws_iam_saml_provider.admin.arn
+    },
+    developer = {
+      name = aws_iam_saml_provider.developer.name
+      arn  = aws_iam_saml_provider.developer.arn
+    },
+    pm = {
+      name = aws_iam_saml_provider.pm.name
+      arn  = aws_iam_saml_provider.pm.arn
+    }
+  }
+}
